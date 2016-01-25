@@ -10,6 +10,7 @@ end
 puts "EventManager Initialized!"
 
 contents = CSV.open "event_attendees.csv", headers: true, header_converters: :symbol
+
 contents.each do |row|
     name = row[:first_name]
     
@@ -17,11 +18,11 @@ contents.each do |row|
     
     legislators = Sunlight::Congress::Legislator.by_zipcode(zipcode)
     
-    legislator_names = []
-    legislators.each do |legislator|
-        legislator_name = "#{legislator.first_name} #{legislator.last_name}"
-        legislator_names.push legislator_name
+    legislator_names = legislators.collect do |legislator|
+        "#{legislator.first_name} #{legislator.last_name}"
     end
     
-    puts "#{name} #{zipcode} #{legislators}"
+    legislators_string = legislator_names.join(", ")
+    
+    puts "#{name} #{zipcode} #{legislators_string}"
 end
