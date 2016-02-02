@@ -10,12 +10,6 @@ end
 
 def legislators_by_zipcode(zipcode)
     legislators = Sunlight::Congress::Legislator.by_zipcode(zipcode)
-    
-    legislator_names = legislators.collect do |legislator|
-        "#{legislator.first_name} #{legislator.last_name}"
-    end
-    
-    legislator_names.join(", ")
 end
 
 puts "EventManager Initialized!"
